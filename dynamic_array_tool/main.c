@@ -54,6 +54,9 @@ int main(){
     setlen_int_list(&intlist, 10);
     int_list_stat(&intlist,"After Resizing to Size 10");
 
+    fillwith_int_list(&intlist, 99);
+    int_list_stat(&intlist,"After Filling with 99");
+
     clear_int_list(&intlist);
     return 0;
 }
