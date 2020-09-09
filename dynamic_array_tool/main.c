@@ -2,7 +2,7 @@
 #include "dynamic_list_tool.h"
 
 DEFINE_DYNAMIC_LIST_WITH_TYPE(int);
-INITIALIZE_DYNAMIC_LIST_TYPE(int);
+INITIALIZE_DYNAMIC_LIST_WITH_TYPE(int);
 int_list_t intlist;
 
 void int_list_print(int_list_t *inlist);
@@ -26,6 +26,9 @@ int main(){
     push_back_arr_int_list(&intlist, testarr, 5);
     int_list_stat(&intlist,"After Appending an Array");
 
+    insert_arr_int_list(&intlist, 1, testarr, 5);
+    int_list_stat(&intlist,"After Inseting an Array at index 1");
+
     printf("Integer at the start: %d\n", *begin_int_list(&intlist));
     printf("Integer at the end: %d\n", *end_int_list(&intlist));
     printf("Integer at the index %d : %d\n", 3, at_int_list(&intlist, 3));
@@ -44,9 +47,14 @@ int main(){
     erase_int_list(&intlist, 3);
     int_list_stat(&intlist,"After Erasing the int at index 3");
 
+    insert_int_list(&intlist, 3, 45);
+    int_list_stat(&intlist,"After Inserting 45 to index 3");
+
     resize_int_list(&intlist, 10);
-    set_len_int_list(&intlist, 10);
+    setlen_int_list(&intlist, 10);
     int_list_stat(&intlist,"After Resizing to Size 10");
+
+    clear_int_list(&intlist);
     return 0;
 }
 
