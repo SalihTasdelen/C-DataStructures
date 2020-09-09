@@ -10,7 +10,7 @@
         int allocated; \
     } type##_list_t;
 
-#define INITIALIZE_DYNAMIC_LIST_TYPE(type) \
+#define INITIALIZE_DYNAMIC_LIST_WITH_TYPE(type) \
     void initialize_##type##_list(type##_list_t *list, int length) { \
         list->length = length; \
         list->allocated = length + (BLOCK_SIZE - length%BLOCK_SIZE); \
@@ -21,7 +21,7 @@
         list->length = 0; \
         list->allocated = 0; \
     } \
-    void set_len_##type##_list(type##_list_t *list, int size) { \
+    void setlen_##type##_list(type##_list_t *list, int size) { \
         list->length = size; \
     } \
     \
@@ -85,8 +85,8 @@
             list->data = realloc(list->data, list->allocated * sizeof(type)); \
         } \
         list->length++; \
-        for (int i = index; i < (list->length - 1); i++) \
-            list->data[i+1] = list->data[i]; \
+        for (int i = (list->length - 1); i >= index; i--) \
+            list->data[i + 1] = list->data[i]; \
         list->data[index] = value; \
     } \
     void erase_##type##_list(type##_list_t *list, int index) { \
@@ -114,6 +114,18 @@
         for (int i = 0; i < size; i++){ \
             list->data[list->length + i] = arr[i]; \
         } \
+        list->length += size; \
+    } \
+    void insert_arr_##type##_list(type##_list_t *list, int index, type *arr, int size) { \
+        if ((size + list->length >= list->allocated)) { \
+            list->allocated += size; \
+            list->allocated += (BLOCK_SIZE - (list->allocated%BLOCK_SIZE)); \
+            list->data = realloc(list->data, list->allocated * sizeof(type)); \
+        } \
+        for (int i = list->length - 1; i >= index; i--) \
+            list->data[i + size] = list->data[i]; \
+        for (int i = 0; i < size; i++) \
+            list->data[i + index] = arr[i]; \
         list->length += size; \
     }
 
