@@ -127,6 +127,10 @@
         for (int i = 0; i < size; i++) \
             list->data[i + index] = arr[i]; \
         list->length += size; \
+    } \
+    void fillwith_##type##_list(type##_list_t *list, type fill) { \
+        for(int i = 0; i < list->length; i++) \
+            list->data[i] = fill; \
     }
 
 #endif
