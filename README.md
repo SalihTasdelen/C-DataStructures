@@ -1,2 +1,2 @@
-# Data-Type-Tools-for-C
+# C-DataStructures
 Useful tools to interfere with data types easier and faster in C.
